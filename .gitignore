@@ -1,0 +1,8 @@
+# Binary build files
+**/__pycache__
+
+# Temporary files
+tmp
+
+# Testing apparatus
+**/test*
