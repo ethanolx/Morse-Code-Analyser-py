@@ -1,5 +1,7 @@
 from typing import Dict, List, Set, Tuple
-
+from tools.data_structures.stack import Stack
+from tools.sorting.custom_sort import custom_sort_key
+from tools.sorting.quicksort import quicksort
 
 class Morse_Code_Analyser:
     def __init__(self, config=None):
@@ -43,7 +45,7 @@ class Morse_Code_Analyser:
             print_str = ''
             for char in line.split(sep=","):
                 ls.append(self.pad_morse(morse=char, char=" "))
-            while ls[0]:
+            for _ in range(5):
                 for char in ls:
                     print_str += char.pop()
                 print_str += '\n'
@@ -51,7 +53,7 @@ class Morse_Code_Analyser:
 
     @staticmethod
     def pad_morse(morse: str, char: str, length: int = 5):
-        return list(morse + ((length - len(morse)) * char))
+        return Stack.from_list(list(morse + ((length - len(morse)) * char)))
 
     def run(self):
         # self.print_info()
@@ -69,8 +71,8 @@ class Morse_Code_Analyser:
                 else:
                     self.print_morse_v(morse)
             elif choice == 3:
-                i_file = input('Enter input file:')
-                o_file = input('Enter output file:')
+                i_file = self.simple_input('Enter input file:')
+                o_file = self.simple_input('Enter output file:')
                 self.analyse_morse_message_3(input_file=i_file, output_file=o_file)
 
     @staticmethod
@@ -182,7 +184,6 @@ class Morse_Code_Analyser:
             stop_words = set([w.upper() for w in f.read().splitlines()])
         report = '*** Decoded morse text\n'
         text = self.decode_morse_3(input_file)
-        print(text)
         report += text + '\n'
         freq_word_dict, word_loc_dict = self.get_frequencies(text)
         unique_freqs = set(freq_word_dict.keys())
@@ -198,10 +199,19 @@ class Morse_Code_Analyser:
                     tmp_essential_message.append(word)
                 report += self.encode_morse_2(word)
                 report += f'[{word}] ({highest_freq}) {word_loc_dict[word]}\n'
-            essential_message.extend(sorted(tmp_essential_message, key=lambda w: word_loc_dict[w][0]))
+            essential_message.extend(quicksort(tmp_essential_message, key=lambda w: word_loc_dict[w][0]))
             unique_freqs.remove(highest_freq)
+            report += '\n'
+        report += '*** Essential Message\n'
         report += ' '.join(essential_message)
         print(report)
+        self.save_report(message=report, file=output_file)
+
+    @staticmethod
+    def save_report(message: str, file: str):
+        if file != '':
+            with open(file=file, mode='w') as f:
+                f.write(message)
 
     @staticmethod
     def get_frequencies(text: str):
@@ -231,21 +241,17 @@ class Morse_Code_Analyser:
 
     @staticmethod
     def sort_words(words: Set[str]):
-        return sorted(list(words), key=lambda w: (len(w), w))
+        return quicksort(list(words), key=lambda w: (len(w), w))
 
     def print_info(self):
-        # moduleLen = len(self.author['module'])
-        print(
-            f"""
-{'*' * 57}
-*\t{self.author['module']}: Morse Code Message Analyser\t*
-{'*' + '-' * 55 + '*'}
-*\t\t\t\t\t\t\t*
-*\t- Done By: {self.author['name']}\t\t\t\t*
-*\t- Class: {self.author['class']}\t\t\t\t*
-*\t\t\t\t\t\t\t*
-{'*' * 57}"""
-        )
+        print('*' * 57)
+        print(f'''*\t{self.author['module']}: Morse Code Message Analyser\t*''')
+        print('*' + '-' * 55 + '*')
+        print('*\t\t\t\t\t\t\t*')
+        print(f'''*\t- Done By: {self.author['name']}\t\t\t\t*''')
+        print(f'''*\t- Class: {self.author['class']}\t\t\t\t*''')
+        print('*\t\t\t\t\t\t\t*')
+        print('*' * 57)
 
     @staticmethod
     def get_choice():
