@@ -53,6 +53,7 @@ class Stack(Abstract_Stack):
     def empty(self):
         self.__size = 0
         self.__head = None
+        return self
 
     @staticmethod
     def from_list(ls: List):

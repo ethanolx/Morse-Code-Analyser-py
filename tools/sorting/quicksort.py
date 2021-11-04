@@ -21,8 +21,8 @@ def partition(ls, l, h, key: bool = False):
                 swap(ls, pointer, partition_index)
         partition_index += 1
         swap(ls, h, partition_index)
-        partition(ls, l, partition_index - 1)
-        partition(ls, partition_index + 1, h)
+        partition(ls, l, partition_index - 1, key=key)
+        partition(ls, partition_index + 1, h, key=key)
 
 
 def quicksort(ls: List, key: Callable = None):
