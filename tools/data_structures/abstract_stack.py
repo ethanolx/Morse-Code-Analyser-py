@@ -13,3 +13,11 @@ class Abstract_Stack(ABC):
     @abstractmethod
     def pop():
         pass
+
+    @abstractmethod
+    def empty():
+        pass
+
+    @abstractmethod
+    def size():
+        pass

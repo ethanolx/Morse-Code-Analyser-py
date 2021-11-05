@@ -1,5 +1,5 @@
 from typing import Dict, List, Set
-from tools.data_structures.stack import Stack
+from tools.morse_character import Morse_Character
 from tools.sorting.quicksort import quicksort
 from tools.utils.clear_console import clear_console
 from tools.word import Word
@@ -46,16 +46,12 @@ class Morse_Code_Analyser:
             ls = []
             print_str = ''
             for char in line.split(sep=","):
-                ls.append(self.pad_morse(morse=char, char=" "))
+                ls.append(Morse_Character(morse_char=char, pad_char=' ', padding=5))
             for _ in range(5):
                 for char in ls:
                     print_str += char.pop()
                 print_str += '\n'
             print(print_str)
-
-    @staticmethod
-    def pad_morse(morse: str, char: str, length: int = 5):
-        return Stack.from_list(list(morse + ((length - len(morse)) * char)))
 
     def run(self):
         choice = 0

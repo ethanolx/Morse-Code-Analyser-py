@@ -34,10 +34,10 @@ class Stack(Abstract_Stack):
     def __len__(self) -> int:
         return self.__size
 
-    def __add__(self, val):
+    def __iadd__(self, val):
         self.push(val=val)
 
-    def __subtract__(self):
+    def __sub__(self):
         return self.pop()
 
     def __repr__(self):
@@ -55,9 +55,5 @@ class Stack(Abstract_Stack):
         self.__head = None
         return self
 
-    @staticmethod
-    def from_list(ls: List):
-        new_stack = Stack()
-        for el in ls:
-            new_stack.push(el)
-        return new_stack
+    def size(self) -> int:
+        return self.__size
