@@ -9,18 +9,6 @@ class Word:
         self.__all_positions: List[Tuple[int, int]] = [first_pos]
         self.__frequency: int = 1
 
-    # def __lt__(self, otherWord) -> bool:
-    #     return (otherWord.size(), self.__word) < (self.size(), otherWord.getWord())
-
-    # def __gt__(self, otherWord) -> bool:
-    #     return (otherWord.size(), self.__word) > (self.size(), otherWord.getWord())
-
-    def repr1(self):
-        return (-self.getFrequency(), self.size(), self.getWord())
-
-    def repr2(self):
-        return (-self.getFrequency(), self.__first_position)
-
     def size(self) -> int:
         return len(self.__word)
 
@@ -33,6 +21,9 @@ class Word:
     def addInstance(self, instance_position: Tuple[int, int]) -> None:
         self.__all_positions.append(instance_position)
         self.__frequency += 1
+
+    def getFirstPos(self) -> Tuple[int, int]:
+        return self.__first_position
 
     def getDetails(self) -> str:
         return str(self)
