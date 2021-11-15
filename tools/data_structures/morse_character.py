@@ -1,4 +1,4 @@
-from .data_structures.stack import Stack
+from .stack import Stack
 
 
 class Morse_Character(Stack):

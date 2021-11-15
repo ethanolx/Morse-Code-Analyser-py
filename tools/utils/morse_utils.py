@@ -97,10 +97,13 @@ class Morse_Utils(ABC):
             "-----": "0",
         }
         text = ""
-        with open(file=file) as f:
-            contents = f.read().splitlines()
-            for line in contents:
-                for char in line.split(","):
-                    text += MORSE_TO_TEXT[char] if "." in char or "-" in char else char
-                text += "\n"
-        return text
+        try:
+            with open(file=file) as f:
+                contents = f.read().splitlines()
+                for line in contents:
+                    for char in line.split(","):
+                        text += MORSE_TO_TEXT[char] if "." in char or "-" in char else char
+                    text += "\n"
+            return text
+        except KeyError:
+            raise AssertionError(f'Morse code in file {file} is in invalid format.')
