@@ -1,4 +1,3 @@
-from typing import List
 from .abstract_stack import Abstract_Stack
 from .node import Node
 
@@ -39,16 +38,6 @@ class Stack(Abstract_Stack):
 
     def __sub__(self):
         return self.pop()
-
-    def __repr__(self):
-        def print_node_rec(node: Node):
-            full_stack = ""
-            if node is not None:
-                full_stack += str(node.get_value()) + " "
-                full_stack += print_node_rec(node.get_next())
-            return full_stack
-
-        return print_node_rec(self.__head)  # type: ignore
 
     def empty(self):
         self.__size = 0

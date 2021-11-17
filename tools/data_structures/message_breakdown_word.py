@@ -20,6 +20,3 @@ class Message_Breakdown_Word(Word):
 
     def __lt__(self, otherWord) -> bool:
         return (-self.getFrequency(), self.size(), self.getWord()) < (-otherWord.getFrequency(), otherWord.size(), otherWord.getWord())
-
-    def __repr__(self) -> str:
-        return self.getDetails()

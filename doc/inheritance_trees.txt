@@ -1,0 +1,7 @@
+ABC ---- Abstract_Stack ---- Stack ---- Morse_Character
+     |
+     |-- Morse_Utils
+     |
+     `-- Word ---- Message_Breakdown_Word
+               |
+               `-- Essential_Message_Word

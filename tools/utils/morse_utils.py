@@ -47,11 +47,10 @@ class Morse_Utils(ABC):
             "0": "-----",
         }
         morse = ""
-        encoded_chars = TEXT_TO_MORSE.keys()
         contents = plain_text.upper().splitlines()
         for line in contents:
-            for char in list(line):
-                morse += TEXT_TO_MORSE[char] if char in encoded_chars else char
+            for char in line:
+                morse += TEXT_TO_MORSE[char] if char in TEXT_TO_MORSE else char
                 morse += ","
             morse = morse[:-1] + "\n"
         return morse

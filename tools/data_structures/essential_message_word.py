@@ -13,11 +13,6 @@ class Essential_Message_Word(Word):
     def getFirstPos(self) -> Tuple[int, int]:
         return self.__first_position
 
-    def getDetails(self) -> str:
-        return self.getWord()
-
     def __lt__(self, otherWord) -> bool:
         return (-self.getFrequency(), self.getFirstPos()) < (-otherWord.getFrequency(), otherWord.getFirstPos())
 
-    def __repr__(self) -> str:
-        return self.getDetails()
