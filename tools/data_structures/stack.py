@@ -1,3 +1,8 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 from .abstract_stack import Abstract_Stack
 from .node import Node
 
@@ -35,9 +40,6 @@ class Stack(Abstract_Stack):
 
     def __iadd__(self, val):
         self.push(val=val)
-
-    def __sub__(self):
-        return self.pop()
 
     def empty(self):
         self.__size = 0

@@ -1,6 +1,8 @@
-# from prompt_toolkit import prompt
-# from prompt_toolkit.history import FileHistory
-# from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 import os
 import re
 

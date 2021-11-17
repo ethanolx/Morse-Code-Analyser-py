@@ -1,4 +1,9 @@
-from typing import Callable, List
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
+from typing import List
 
 
 def swap(ls, i, j):

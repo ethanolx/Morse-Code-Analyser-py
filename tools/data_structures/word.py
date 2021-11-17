@@ -1,3 +1,8 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 from abc import ABC, abstractmethod
 
 

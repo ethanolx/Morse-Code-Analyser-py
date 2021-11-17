@@ -1,3 +1,8 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 from abc import ABC, abstractmethod
 
 
@@ -46,14 +51,16 @@ class Morse_Utils(ABC):
             "9": "----.",
             "0": "-----",
         }
-        morse = ""
+        morse_ls = []
         contents = plain_text.upper().splitlines()
         for line in contents:
             for char in line:
-                morse += TEXT_TO_MORSE[char] if char in TEXT_TO_MORSE else char
-                morse += ","
-            morse = morse[:-1] + "\n"
-        return morse
+                morse_ls.append(
+                    TEXT_TO_MORSE[char] if char in TEXT_TO_MORSE else char)
+                morse_ls.append(",")
+            morse_ls.pop()
+            morse_ls.append('\n')
+        return ''.join(morse_ls)
 
     @staticmethod
     def decode_morse(file: str):
@@ -95,14 +102,15 @@ class Morse_Utils(ABC):
             "----.": "9",
             "-----": "0",
         }
-        text = ""
         try:
             with open(file=file) as f:
                 contents = f.read().splitlines()
+                text_ls = []
                 for line in contents:
                     for char in line.split(","):
-                        text += MORSE_TO_TEXT[char] if "." in char or "-" in char else char
-                    text += "\n"
-            return text
+                        text_ls += MORSE_TO_TEXT[char] if "." in char or "-" in char else char
+                    text_ls.append("\n")
+            return "".join(text_ls)
         except KeyError:
-            raise AssertionError(f'Morse code in file {file} is in invalid format.')
+            raise AssertionError(
+                f'Morse code in file {file} is in invalid format.')

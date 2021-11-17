@@ -1,3 +1,7 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
 class Node:
     def __init__(self, val, next_node=None):
         self.__value = val

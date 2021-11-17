@@ -1,3 +1,8 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 from typing import Tuple
 from .word import Word
 
@@ -15,4 +20,3 @@ class Essential_Message_Word(Word):
 
     def __lt__(self, otherWord) -> bool:
         return (-self.getFrequency(), self.getFirstPos()) < (-otherWord.getFrequency(), otherWord.getFirstPos())
-

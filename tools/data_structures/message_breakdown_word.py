@@ -1,3 +1,8 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 from typing import List, Tuple
 from .word import Word
 from ..utils.morse_utils import Morse_Utils

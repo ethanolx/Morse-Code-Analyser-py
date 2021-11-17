@@ -1,3 +1,8 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+# Import Dependencies
 from typing import Dict, List, Set, Tuple
 from .data_structures.morse_character import Morse_Character
 from .data_structures.message_breakdown_word import Message_Breakdown_Word
@@ -122,15 +127,15 @@ class Morse_Code_Analyser:
         lines = morse.splitlines()
         for line in lines:
             ls = []
-            print_str = ''
+            print_ls = []
             for char in line.split(sep=','):
                 ls.append(Morse_Character(
                     morse_char=char, pad_char=' ', padding=5))
             for _ in range(5):
                 for char in ls:
-                    print_str += char.pop()
-                print_str += '\n'
-            print(print_str)
+                    print_ls.append(char.pop())
+                print_ls.append('\n')
+            print(''.join(print_ls))
 
     # Option 3
     def __set_stop_words(self, file: str):
@@ -196,28 +201,28 @@ class Morse_Code_Analyser:
             previous_frequency = sorted_words[0].getFrequency()
         except IndexError:
             previous_frequency = self.__min_significant_frequency - 1
-        message_breakdown = ''
+        message_breakdown = []
         if previous_frequency >= self.__min_significant_frequency:
-            message_breakdown += f'*** Morse words with frequency = {previous_frequency}\n'
+            message_breakdown.append(f'*** Morse words with frequency = {previous_frequency}\n')
         for word in sorted_words:
             current_frequency = word.getFrequency()
             if current_frequency < self.__min_significant_frequency:
                 break
             if current_frequency < previous_frequency:
-                message_breakdown += f'\n*** Morse words with frequency = {current_frequency}\n'
+                message_breakdown.append(f'\n*** Morse words with frequency = {current_frequency}\n')
                 previous_frequency = current_frequency
-            message_breakdown += word.getDetails()
-        return message_breakdown
+            message_breakdown.append(word.getDetails())
+        return ''.join(message_breakdown)
 
     def __get_essential_message(self, stop_words: Set[str], word_ls: List[Essential_Message_Word]):
         sorted_words: List[Essential_Message_Word] = quicksort(
             word_ls)  # type: ignore
-        essential_message = ''
+        essential_message = []
         for word in sorted_words:
             w = word.getWord()
             if w not in stop_words and w.isalpha():
-                essential_message += w + ' '
-        return essential_message
+                essential_message.append(w)
+        return ' '.join(essential_message)
 
     def __build_report(self, decoded_message: str, message_breakdown: str, essential_message: str):
         report = '*** Decoded morse text\n' + decoded_message + '\n' \

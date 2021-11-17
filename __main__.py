@@ -1,3 +1,9 @@
+# Name:     Ethan Tan
+# Admin:    P2012085
+# Class:    DAAA/2B/03
+
+## MAIN PROGRAM ##
+
 from tools.morse_code_analyser import Morse_Code_Analyser
 
 CONFIG = {
