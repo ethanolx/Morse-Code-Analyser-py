@@ -13,7 +13,7 @@ class Morse_Character(Stack):
 
         # Pads all characters to length 5, as longest morse character is 5,
         #   thus enforcing O(1) time complexity
-        for symbol in morse_char:
+        for symbol in morse_char[::-1]:
             self.push(symbol)
 
         for _ in range(padding - self.size()):

@@ -19,7 +19,7 @@ CONFIG = {
         "class": "DAAA/2B/03",
         "module": "ST1507 DSAA",
     },
-    "min_significant_frequency": 2
+    "min_significant_frequency": 1
 }
 
 # Instantiate the analyser object and run it
