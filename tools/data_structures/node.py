@@ -2,16 +2,15 @@
 # Admin:    P2012085
 # Class:    DAAA/2B/03
 
+# Class for an individual node in the Stack class
 class Node:
     def __init__(self, val, next_node=None):
+        # Value property is immutable after initialisation
         self.__value = val
-        self.attach_next(next_node)
 
+        # Next node is not encapsulated
+        self.next = next_node
+
+    # Getter for value
     def get_value(self):
         return self.__value
-
-    def attach_next(self, next_node):
-        self.__next = next_node
-
-    def get_next(self):
-        return self.__next

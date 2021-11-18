@@ -7,6 +7,7 @@ from typing import Tuple
 from .word import Word
 
 
+# Model for a word in the essential message
 class Essential_Message_Word(Word):
     def __init__(self, word: str, first_pos: Tuple[int, int]):
         super().__init__(word=word)

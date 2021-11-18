@@ -6,6 +6,7 @@
 from abc import ABC, abstractmethod
 
 
+# Models a word in the morse code message
 class Word(ABC):
     def __init__(self, word: str):
         self._word: str = word.upper()

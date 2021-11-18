@@ -3,7 +3,7 @@
 # Class:    DAAA/2B/03
 
 # Import Dependencies
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Literal, Set, Tuple, Union
 from .data_structures.morse_character import Morse_Character
 from .data_structures.message_breakdown_word import Message_Breakdown_Word
 from .data_structures.essential_message_word import Essential_Message_Word
@@ -13,10 +13,12 @@ from .utils.morse_utils import Morse_Utils
 from os.path import exists, isfile
 
 
+# Main object
 class Morse_Code_Analyser:
     def __init__(self, config=None):
         self.__load_config(config=config)
 
+    # Load custom configuration options
     def __load_config(self, config=None):
         DEFAULT_CONFIG = {
             'author': {
@@ -27,32 +29,41 @@ class Morse_Code_Analyser:
             },
             'print_mode': 'h',
             'stopwords_file': 'data/stopwords.txt',
-            'min_significant_frequency': 2
+            'min_significant_frequency': 1
         }
 
+        # Defaults to default configuration if key is not specified in config
         CUSTOM_CONFIG = DEFAULT_CONFIG.copy()
         if config is not None:
             for k, v in config.items():
                 CUSTOM_CONFIG[k] = v
 
+        # Details to be displayed
         self.__author: Dict[str, Dict[str, str]] = CUSTOM_CONFIG['author']
-        custom_print_mode = CUSTOM_CONFIG['print_mode']
-        self.__print_mode = custom_print_mode \
-            if custom_print_mode == 'h' or custom_print_mode == 'v' \
-            else DEFAULT_CONFIG['print_mode']
-        custom_min_freq = CUSTOM_CONFIG['min_significant_frequency']
-        self.__min_significant_frequency: int = custom_min_freq \
-            if custom_min_freq is int \
-            else DEFAULT_CONFIG['min_significant_frequency']
+
+        # Default printing mode
+        self.__print_mode: Union[Literal['h'],
+                                 Literal['v']] = CUSTOM_CONFIG['print_mode']
+
+        # Minimum lowest frequency to display in the get_message_breakdown method in Option 3
+        self.__min_significant_frequency: int = CUSTOM_CONFIG['min_significant_frequency']
+
+        # Relative path to file containing stop words
         self.__set_stop_words(file=CUSTOM_CONFIG['stopwords_file'])
 
     # Operational Methods
+    # Runs the program
     def run(self):
         choice = 0
         while choice < 4:
             clear_console()
+
+            # Displays the author's information
             self.__print_info()
+
+            # Get the user's choice
             choice = self.__get_choice()
+
             if choice == 1:
                 self.__change_printing_mode_1()
             elif choice == 2:
@@ -64,6 +75,8 @@ class Morse_Code_Analyser:
                 break
             input('\nPress Enter to continue...')
 
+    # Allows the user to change the printing mode for Option 2
+    # Empty input will return to the menu without changing the printing mode
     def __change_printing_mode_1(self):
         mode = self.__print_mode
         modes = {
@@ -86,6 +99,8 @@ class Morse_Code_Analyser:
             print('Operation cancelled by user. The print mode remains as',
                   modes[self.__print_mode])
 
+    # Converts a (multi-line) message in plain text to morse code and prints it out
+    #   based on the current printing mode
     def __convert_text_to_morse_2(self):
         print('Enter text to be converted:')
         lines = multi_line_input()
@@ -95,6 +110,9 @@ class Morse_Code_Analyser:
         else:
             self.__print_morse_v(morse)
 
+    # Converts a morse code message in a file to plain text
+    # Displays a breakdown of the frequencies of each word in the message
+    # Displays the essential message, with stop words removed
     def __analyse_morse_message_3(self):
         input_file, output_file = self.__get_target_files()
         try:
@@ -112,25 +130,35 @@ class Morse_Code_Analyser:
         except AssertionError as err:
             print(err, 'Aborting...')
 
+    # Displays a friendly farewell message
     def __exit_4(self):
         print('Bye, thanks for using {}: Morse Code Analyser!'.format(
             self.__author['module']))
 
     # Utility Methods
-    # Option 1
+
+    # Option 2
+
+    # Prints the encoded string horizontally
     @staticmethod
     def __print_morse_h(morse: str):
         print(morse)
 
+    # Prints the encoded string vertically
     @staticmethod
     def __print_morse_v(morse: str):
         lines = morse.splitlines()
         for line in lines:
             ls = []
+            # A list is used to collect the characters as
+            #   repeated appending has an amortized worst case time complexity of O(n) whereas
+            #   repeated string concatenation has a time complexity of O(n^2)
             print_ls = []
             for char in line.split(sep=','):
                 ls.append(Morse_Character(
                     morse_char=char, pad_char=' ', padding=5))
+
+            # Each morse character has a maximum length of 5
             for _ in range(5):
                 for char in ls:
                     print_ls.append(char.pop())
@@ -138,14 +166,18 @@ class Morse_Code_Analyser:
             print(''.join(print_ls))
 
     # Option 3
+
+    # Loads the stop words from the file specified
     def __set_stop_words(self, file: str):
         with open(file=file, mode='r') as f:
             stop_words = {w.upper() for w in f.read().splitlines()}
         self.__stop_words = stop_words
 
+    # Returns the input and output files
     def __get_target_files(self):
         return self.__get_input_file(), self.__get_output_file()
 
+    # Tries recursively to obtain a valid input file from the user
     def __get_input_file(self):
         try:
             input_file = file_input('Enter input file:  ')
@@ -156,6 +188,8 @@ class Morse_Code_Analyser:
             print(err)
             return self.__get_input_file()
 
+    # Tries recursively to obtain a valid output file from the user
+    # Empty input will cause report to not be saved
     def __get_output_file(self):
         try:
             output_file = file_input('Enter output file: ')
@@ -168,10 +202,12 @@ class Morse_Code_Analyser:
             print('Invalid output file name')
             return self.__get_output_file()
 
+    # Decodes morse code message from input file
     def __get_decoded_message(self, input_file: str):
         decoded_message = Morse_Utils.decode_morse(input_file)
         return decoded_message
 
+    # Returns a list of words to be used by __get_message_breakdown and __get_essential_message methods
     def __get_frequencies(self, text: str):
         word_dict: Dict[str, Tuple[Message_Breakdown_Word,
                                    Essential_Message_Word]] = {}
@@ -194,26 +230,30 @@ class Morse_Code_Analyser:
             essential_message_word_list.append(emw)
         return message_breakdown_word_list, essential_message_word_list
 
+    # Analyses frequencies and positions of the words in the morse code message
     def __get_message_breakdown(self, word_ls: List[Message_Breakdown_Word]):
         sorted_words: List[Message_Breakdown_Word] = quicksort(
-            word_ls)  # type: ignore
+            word_ls)
         try:
             previous_frequency = sorted_words[0].getFrequency()
         except IndexError:
             previous_frequency = self.__min_significant_frequency - 1
         message_breakdown = []
         if previous_frequency >= self.__min_significant_frequency:
-            message_breakdown.append(f'*** Morse words with frequency = {previous_frequency}\n')
+            message_breakdown.append(
+                f'*** Morse words with frequency = {previous_frequency}\n')
         for word in sorted_words:
             current_frequency = word.getFrequency()
             if current_frequency < self.__min_significant_frequency:
                 break
             if current_frequency < previous_frequency:
-                message_breakdown.append(f'\n*** Morse words with frequency = {current_frequency}\n')
+                message_breakdown.append(
+                    f'\n*** Morse words with frequency = {current_frequency}\n')
                 previous_frequency = current_frequency
             message_breakdown.append(word.getDetails())
         return ''.join(message_breakdown)
 
+    # Analyses essential message through sorting by frequency and first position of the words
     def __get_essential_message(self, stop_words: Set[str], word_ls: List[Essential_Message_Word]):
         sorted_words: List[Essential_Message_Word] = quicksort(
             word_ls)  # type: ignore
@@ -224,6 +264,7 @@ class Morse_Code_Analyser:
                 essential_message.append(w)
         return ' '.join(essential_message)
 
+    # Builds report from the three components
     def __build_report(self, decoded_message: str, message_breakdown: str, essential_message: str):
         report = '*** Decoded morse text\n' + decoded_message + '\n' \
             if decoded_message != '' \
@@ -236,12 +277,15 @@ class Morse_Code_Analyser:
             else '*** No essential message'
         return report
 
+    # Saves report to the output file, if specified
     def __save_report(self, message: str, file: str):
         if file != '':
             with open(file=file, mode='w') as f:
                 f.write(message)
 
     # Generic Utility Methods
+
+    # Retrieves valid option from user, recursively
     def __get_choice(self):
         print(
             'Please select your choice (1, 2, 3 or 4):\n \
@@ -258,6 +302,7 @@ class Morse_Code_Analyser:
             return self.__get_choice()
         return choice
 
+    # Prints the author's details
     def __print_info(self):
         print('*' * 57)
         print(

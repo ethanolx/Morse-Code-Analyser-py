@@ -6,6 +6,7 @@
 from abc import ABC, abstractmethod
 
 
+# Template for Stack class
 class Abstract_Stack(ABC):
     @abstractmethod
     def push():

@@ -8,6 +8,7 @@ from .word import Word
 from ..utils.morse_utils import Morse_Utils
 
 
+# Model for a word in the message breakdown
 class Message_Breakdown_Word(Word):
     def __init__(self, word: str, first_pos: Tuple[int, int]):
         super().__init__(word=word)

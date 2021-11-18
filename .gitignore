@@ -3,9 +3,3 @@
 
 # Temporary files
 tmp
-
-# Testing apparatus
-**/test*
-
-# VSCode configurations
-.vscode

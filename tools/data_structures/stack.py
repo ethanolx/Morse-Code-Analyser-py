@@ -7,6 +7,7 @@ from .abstract_stack import Abstract_Stack
 from .node import Node
 
 
+# Generic linear data structure implementing LIFO principle
 class Stack(Abstract_Stack):
     def __init__(self):
         self.__head = None
@@ -17,7 +18,7 @@ class Stack(Abstract_Stack):
         if self.__head is None:
             self.__head = new_node
         else:
-            new_node.attach_next(next_node=self.__head)
+            new_node.next = self.__head
             self.__head = new_node
         self.__size += 1
 
@@ -31,7 +32,7 @@ class Stack(Abstract_Stack):
         tmp_val = None
         if self.__head is not None:
             tmp_val = self.__head.get_value()
-            self.__head = self.__head.get_next()
+            self.__head = self.__head.next
             self.__size -= 1
         return tmp_val
 
@@ -40,6 +41,7 @@ class Stack(Abstract_Stack):
 
     def __iadd__(self, val):
         self.push(val=val)
+        return self
 
     def empty(self):
         self.__size = 0

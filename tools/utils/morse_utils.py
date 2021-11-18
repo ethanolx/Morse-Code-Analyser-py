@@ -6,11 +6,13 @@
 from abc import ABC, abstractmethod
 
 
+# Merely a namespace for morse-to-text translation functions
 class Morse_Utils(ABC):
     @abstractmethod
     def __init__(self):
         pass
 
+    # Encodes plain text to morse code
     @staticmethod
     def encode_morse(plain_text: str):
         TEXT_TO_MORSE = {
@@ -62,6 +64,7 @@ class Morse_Utils(ABC):
             morse_ls.append('\n')
         return ''.join(morse_ls)
 
+    # Decodes morse code to plain text
     @staticmethod
     def decode_morse(file: str):
         MORSE_TO_TEXT = {

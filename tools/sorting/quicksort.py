@@ -2,14 +2,17 @@
 # Admin:    P2012085
 # Class:    DAAA/2B/03
 
+# type: ignore
 # Import Dependencies
 from typing import List
 
 
+# Swap 2 values in the list by specified indices
 def swap(ls, i, j):
     ls[j], ls[i] = ls[i], ls[j]
 
 
+# Recursive body of the algorithm
 def partition(ls, l, h):
     if l < h:
         partition_index = pointer = l - 1
@@ -25,14 +28,10 @@ def partition(ls, l, h):
         partition(ls, partition_index + 1, h)
 
 
+# Main function
+# Sorts an arbitrary list using the quicksort algorithm
+# Returns a new list, sorted
 def quicksort(ls: List):
     ls_copy = ls.copy()
     partition(ls_copy, 0, len(ls) - 1)
     return ls_copy
-
-
-if __name__ == "__main__":
-    ls = [6, 4, 5, 6, 3, 5, 2, 4, 5]
-    print(ls)
-    print(quicksort(ls))
-    print(ls)
