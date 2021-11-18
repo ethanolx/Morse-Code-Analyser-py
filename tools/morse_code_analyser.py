@@ -8,7 +8,7 @@ from .data_structures.morse_character import Morse_Character
 from .data_structures.message_breakdown_word import Message_Breakdown_Word
 from .data_structures.essential_message_word import Essential_Message_Word
 from .sorting.quicksort import quicksort
-from .utils.io_utils import simple_input, multi_line_input, file_input, clear_console
+from .utils.io_utils import strip_special_characters, simple_input, multi_line_input, file_input, clear_console
 from .utils.morse_utils import Morse_Utils
 from os.path import exists, isfile
 
@@ -117,8 +117,9 @@ class Morse_Code_Analyser:
         input_file, output_file = self.__get_target_files()
         try:
             decoded_text = self.__get_decoded_message(input_file=input_file)
+            stripped_decoded_text = strip_special_characters(decoded_text)
             message_breakdown_ls, essential_message_ls = self.__get_frequencies(
-                text=decoded_text)
+                text=stripped_decoded_text)
             message_breakdown = self.__get_message_breakdown(
                 word_ls=message_breakdown_ls)
             essential_message = self.__get_essential_message(

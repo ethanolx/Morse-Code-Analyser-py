@@ -18,7 +18,8 @@
          |
          |-- doc ---- CA1_Brief.pdf
          |        |-- inheritance_tree.txt
-         |        `-- Report.docx
+         |        |-- Report.docx
+         |        `-- Report.pdf
          |
          |-- out ---- report.txt
          |

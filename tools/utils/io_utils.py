@@ -17,6 +17,10 @@ def whitespace_reducer(text: str):
     return re.sub(pattern='[\\s]+', repl=' ', string=text)
 
 
+# Converts non alphanumeric characters to whitespace
+def strip_special_characters(text: str):
+    return re.sub(pattern='[^A-Za-z0-9]', repl=' ', string=text)
+
 # Retrieves formatted multi-line input
 def multi_line_input():
     lines = []
