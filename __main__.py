@@ -8,8 +8,7 @@
 
 # Import the main object
 from tools.morse_code_analyser import Morse_Code_Analyser
-from tools.data_structures.stack import Stack
-from tools.sorting.quicksort import quicksort
+
 
 # Declare a custom configuration dictionary
 CONFIG = {
