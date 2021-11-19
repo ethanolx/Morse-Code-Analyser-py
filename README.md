@@ -43,7 +43,13 @@
          `-- README.md
 ```
 
+## Run Program
+
+Run the morse code analyser program one of two ways:
+1. `python .`
+2. `python __main__.py`
+
 ## See Also
 - `doc/CA1_Brief.pdf` - Assignment brief
-- `doc/inheritance_trees.txt` - Inheritance scheme
-- `doc/Report.docx` - Documented report
+- `doc/inheritance_tree.txt` - Inheritance scheme
+- `doc/Report.docx`/`doc/Report.pdf` - Documented report

@@ -114,9 +114,10 @@ class Morse_Code_Analyser:
     # Displays a breakdown of the frequencies of each word in the message
     # Displays the essential message, with stop words removed
     def __analyse_morse_message_3(self):
-        input_file, output_file = self.__get_target_files()
         try:
+            input_file = self.__get_input_file()
             decoded_text = self.__get_decoded_message(input_file=input_file)
+            output_file = self.__get_output_file()
             stripped_decoded_text = strip_special_characters(decoded_text)
             message_breakdown_ls, essential_message_ls = self.__get_frequencies(
                 text=stripped_decoded_text)
@@ -173,10 +174,6 @@ class Morse_Code_Analyser:
         with open(file=file, mode='r') as f:
             stop_words = {w.upper() for w in f.read().splitlines()}
         self.__stop_words = stop_words
-
-    # Returns the input and output files
-    def __get_target_files(self):
-        return self.__get_input_file(), self.__get_output_file()
 
     # Tries recursively to obtain a valid input file from the user
     def __get_input_file(self):
@@ -310,7 +307,7 @@ class Morse_Code_Analyser:
             f'''*\t{self.__author['module']}: Morse Code Message Analyser\t*''')
         print('*' + '-' * 55 + '*')
         print('*\t\t\t\t\t\t\t*')
-        print(f'''*\t- Done By: {self.__author['name']}\t\t\t\t*''')
+        print(f'''*\t- Done By: {self.__author['name']} ({self.__author['admin']})\t\t\t*''')
         print(f'''*\t- Class: {self.__author['class']}\t\t\t\t*''')
         print('*\t\t\t\t\t\t\t*')
         print('*' * 57)
